@@ -1,0 +1,14 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+# 检查C++11支持 / Check C++11 support
+if(NOT CMAKE_CXX_STANDARD OR CMAKE_CXX_STANDARD LESS 11)
+    set(CMAKE_CXX_STANDARD 11)
+    set(CMAKE_CXX_STANDARD_REQUIRED ON)
+endif()
+
+# 包含目标文件 / Include targets file
+include("${CMAKE_CURRENT_LIST_DIR}/mystl-targets.cmake")
+
+check_required_components(mystl)

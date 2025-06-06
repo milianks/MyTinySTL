@@ -1,51 +1,145 @@
-MyTinySTL
+MyTinySTL - Refactored Edition
 =====
 [![Build Status](https://travis-ci.org/Alinshans/MyTinySTL.svg?branch=master)](https://travis-ci.org/Alinshans/MyTinySTL) [![Build Status](https://ci.appveyor.com/api/projects/status/github/Alinshans/MyTinySTL?branch=master&svg=true)](https://ci.appveyor.com/project/Alinshans/mytinystl) [![Release](https://img.shields.io/github/release/Alinshans/MyTinySTL.svg)](https://github.com/Alinshans/MyTinySTL/releases) [![License](https://img.shields.io/badge/License-MIT%20License-blue.svg)](https://opensource.org/licenses/MIT) [![Chat](https://img.shields.io/badge/chat-on%20gitter-FF6EB4.svg)](https://gitter.im/alinshans/MyTinySTL)
 
-## 简介
-   基于 `C++11` 的 `tinySTL`，这是我的第一个项目，使用了中文文档与中文注释，有不规范或不当的地方还请海涵。刚开始是作为新手练习用途，直到现在已经发布了 `2.x.x` 版本。实现了大部分 STL 中的容器与函数，但仍存在许多不足与 bug 。从 `2.x.x` 版本开始，本项目会进入长期维护的阶段，即基本不会增加新的内容，只修复发现的 bug。如发现错误，还请在 [`Issues`](https://github.com/Alinshans/MyTinySTL/issues) 中指出，欢迎 `Fork` 和 [`Pull requests`](https://github.com/Alinshans/MyTinySTL/pulls) 改善代码，谢谢！
+## 项目简介 / Introduction
+   这是一个基于 `C++11` 标准的轻量级 STL 实现，经过全面重构以提高代码质量、可维护性和测试覆盖率。本项目实现了 STL 中的主要容器、算法和工具类，采用现代 C++ 设计模式，具有良好的异常安全保证和性能优化。
 
-## 支持
+   This is a lightweight STL implementation based on `C++11` standard, comprehensively refactored to improve code quality, maintainability, and test coverage. The project implements major STL containers, algorithms, and utilities with modern C++ design patterns, providing strong exception safety guarantees and performance optimizations.
 
-* 操作系统
-  * linux
-  * windows
-  * osx
-* 编译器
-  * g++ 5.4 或以上
-  * clang++ 3.5 或以上
-  * msvc 14.0 或以上
+## 重构特性 / Refactoring Features
 
-## 需要
-  * 使用 cmake 2.8 来构建项目（**可选**）
+### 🏗️ 架构改进 / Architecture Improvements
+- **模块化设计**：重新组织代码结构，按功能模块分类
+- **现代C++设计**：采用现代C++11特性和最佳实践
+- **异常安全**：提供强异常安全保证
+- **性能优化**：针对常见操作进行性能优化
 
-## 运行
-
-如果你想要运行测试，请先阅读 [这个](https://github.com/Alinshans/MyTinySTL/blob/master/Test/README.md) 。
-
-  * gcc/clang on linux/osx
-  1. 克隆仓库
-```bash
-$ git clone git@github.com:Alinshans/MyTinySTL.git
-$ cd MyTinySTL
+### 📁 新目录结构 / New Directory Structure
 ```
-  2. 构建并运行
-```bash
-$ mkdir build && cd build
-$ cmake ..
-$ make
-$ cd ../bin && ./stltest
+MyTinySTL/
+├── include/mystl/           # 头文件库
+│   ├── core/               # 核心组件
+│   ├── containers/         # 容器类
+│   ├── algorithms/         # 算法
+│   ├── iterators/          # 迭代器
+│   ├── memory/             # 内存管理
+│   └── utilities/          # 工具类
+├── tests/                  # 测试代码
+│   ├── unit/              # 单元测试
+│   ├── integration/       # 集成测试
+│   └── performance/       # 性能测试
+├── docs/                   # 文档
+└── examples/              # 示例代码
 ```
 
-  * msvc on windows
-  1. 克隆仓库或 [Download ZIP](https://github.com/Alinshans/MyTinySTL/archive/master.zip)
-  2. 使用 `vs2015`（或 `vs2017`）打开 `MSVC/MyTinySTL_VS2015.sln`，配置成 `Release` 模式，（Ctrl + F5）开始执行。
-  
-## 文档
-  见 [Wiki](https://github.com/Alinshans/MyTinySTL/wiki)。
+### 🧪 测试框架 / Testing Framework
+- **现代测试框架**：自定义轻量级测试框架
+- **全面覆盖**：单元测试、集成测试、性能测试
+- **持续集成**：支持CI/CD流水线
 
-## 测试
-  见 [Test](https://github.com/Alinshans/MyTinySTL/tree/master/Test)。
+## 系统要求 / System Requirements
+
+### 支持的操作系统 / Supported Operating Systems
+- **Linux** (Ubuntu 16.04+, CentOS 7+)
+- **Windows** (Windows 10+)
+- **macOS** (10.12+)
+
+### 编译器要求 / Compiler Requirements
+- **GCC** 5.0+ (推荐 7.0+)
+- **Clang** 3.5+ (推荐 6.0+)
+- **MSVC** 19.0+ (Visual Studio 2015+, 推荐 2019+)
+
+### 构建工具 / Build Tools
+- **CMake** 3.10+ (必需)
+- **Git** (用于克隆仓库)
+
+## 快速开始 / Quick Start
+
+### 1. 克隆仓库 / Clone Repository
+```bash
+git clone https://github.com/milianks/MyTinySTL.git
+cd MyTinySTL
+```
+
+### 2. 构建项目 / Build Project
+```bash
+# 创建构建目录
+mkdir build && cd build
+
+# 配置项目
+cmake .. -DCMAKE_BUILD_TYPE=Release
+
+# 编译
+cmake --build . --parallel
+
+# 运行测试
+ctest --output-on-failure
+```
+
+### 3. 安装 / Installation
+```bash
+# 安装到系统目录
+sudo cmake --install .
+
+# 或安装到自定义目录
+cmake --install . --prefix /path/to/install
+```
+
+## 使用方法 / Usage
+
+### 基本使用 / Basic Usage
+```cpp
+#include <mystl/containers/vector.h>
+#include <mystl/algorithms/algorithm.h>
+#include <iostream>
+
+int main() {
+    // 创建vector
+    mystl::vector<int> vec{1, 2, 3, 4, 5};
+
+    // 添加元素
+    vec.push_back(6);
+
+    // 遍历元素
+    for (const auto& item : vec) {
+        std::cout << item << " ";
+    }
+
+    return 0;
+}
+```
+
+### CMake集成 / CMake Integration
+```cmake
+find_package(mystl REQUIRED)
+target_link_libraries(your_target mystl::mystl)
+```
+
+## 测试 / Testing
+
+### 运行所有测试 / Run All Tests
+```bash
+cd build
+ctest --verbose
+```
+
+### 运行特定测试 / Run Specific Tests
+```bash
+# 运行vector测试
+./test_vector
+
+# 运行性能测试
+./performance_tests
+```
+
+### 代码覆盖率 / Code Coverage
+```bash
+cmake .. -DCMAKE_BUILD_TYPE=Debug -DMYSTL_ENABLE_COVERAGE=ON
+make
+ctest
+gcov *.gcno
+```
 
 ---
 
