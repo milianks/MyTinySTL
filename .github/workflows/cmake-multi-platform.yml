@@ -1,0 +1,57 @@
+name: CMake on multiple platforms
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        compiler: [g++, clang++, cl]
+        include:
+          - os: ubuntu-latest
+            compiler: g++
+          - os: ubuntu-latest
+            compiler: clang++
+          - os: windows-latest
+            compiler: cl
+        exclude:
+          - os: windows-latest
+            compiler: g++
+          - os: windows-latest
+            compiler: clang++
+          - os: ubuntu-latest
+            compiler: cl
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set build directory
+      id: vars
+      run: echo "dir=build" >> $GITHUB_OUTPUT
+
+    - name: Install build tools (Linux only)
+      if: runner.os == 'Linux'
+      run: sudo apt-get update && sudo apt-get install -y cmake ninja-build
+
+    - name: Configure CMake
+      run: >
+        cmake -B ${{ steps.vars.outputs.dir }}
+        -S .
+        -DCMAKE_CXX_COMPILER=${{ matrix.compiler }}
+        -DCMAKE_BUILD_TYPE=Release
+        -G Ninja
+
+    - name: Build
+      run: cmake --build ${{ steps.vars.outputs.dir }}
+
+    - name: Run tests
+      run: ctest --output-on-failure
+      working-directory: ${{ steps.vars.outputs.dir }}
